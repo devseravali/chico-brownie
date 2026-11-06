@@ -31,6 +31,12 @@ Antes de publicar, confira os dados de contato, as informações da marca e os c
 
 O workflow em `.github/workflows/deploy.yml` compila e publica o site no GitHub Pages quando há um push para a branch `main`, ou quando executado manualmente pelo GitHub Actions. Para publicar, habilite o GitHub Pages usando GitHub Actions nas configurações do repositório.
 
+1. Em **Settings > Pages > Build and deployment > Source**, selecione **GitHub Actions**, não **Deploy from a branch**.
+2. Em **Actions > Deploy to GitHub Pages**, execute **Run workflow** na branch `main` ou envie um novo push para essa branch.
+3. Aguarde o job `deploy` terminar antes de abrir o site.
+
+O workflow usa o caminho informado pelo GitHub Pages como base do build e publica apenas `dist`. Não publique a raiz do repositório: o `index.html` original depende do Vite para substituir `%BASE_URL%` e compilar `src/main.tsx`. Se esses valores aparecerem no HTML publicado, o Pages está servindo o código-fonte em vez do build, causando erros 400/404 nas imagens e no JavaScript.
+
 ---
 
 Feito com carinho por [@devseravali](https://github.com/devseravali). 🍫
